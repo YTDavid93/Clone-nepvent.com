@@ -1,5 +1,5 @@
 <template>
-  <div class="outer-container">
+  <!-- <div class="outer-container">
     <div v-for="(location, index) of locations" :key="index" class="test max-w-md mx-auto mb-8">
       <h1 class="text-2xl font-bold">{{ location.name }}</h1>
       <div class="flex flex-wrap mt-4">
@@ -15,7 +15,7 @@
         </div>
       </div>
     </div>
-  </div>
+  </div> -->
 <!-- chhutaidi halne -->
 
   <div v-if="showForm" class="mt-4">
@@ -79,7 +79,7 @@ const items = ref([])
 const lists = ref([])
 
 const showLists = ref(false)
-const showForm = ref(false)
+// const showForm = ref(false)
 const tableName = ref(null)
 const showModal = ref(false)
 const finalAmount = ref(null)
@@ -138,7 +138,7 @@ const placeorder = async (id) => {
 
     selectedTableId.value = id
 
-    showForm.value = true
+    // showForm.value = true
   } catch (error) {
     console.log(error)
   }
