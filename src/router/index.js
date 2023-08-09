@@ -17,7 +17,18 @@ const router = createRouter({
       path: '/customer-form',
       name: 'customerform',
       component: () => import('../Customers/CustomerForm.vue')
-    }
+    },
+    {
+     path: '/customerpage/edit/:id',
+     name: 'customerEdit',
+     component: () => import('../Customers/CustomerForm.vue')
+   },
+   {
+    path: '/orderpage',
+    name: 'orderpage',
+    component: () => import('../Order/OrderPage.vue')
+   },
+
   ]
 })
 

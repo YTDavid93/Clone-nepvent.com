@@ -3,7 +3,6 @@
     <div class="bg-gray-200 p-6 rounded-lg shadow-lg">
       <div class="flex justify-between items-center mb-4">
         <h1 class="text-2xl font-bold">Customers</h1>
-        <!-- <button class="px-4 py-2 bg-blue-500 text-white rounded-lg">New Customer</button> -->
         <button class="px-4 py-2 bg-blue-500 text-white rounded-lg">
           <router-link to="/customer-form">New Customer</router-link>
         </button>
@@ -36,12 +35,12 @@
             <td class="py-2">{{ customer.creditLimit }}</td>
             <td class="p-3">
               <a class="text-gray-400 hover:text-gray-100 mx-2">
-                <button
-                  @click="editCustomer(customer.Id)"
+                <router-link
+                  :to="{ name: 'customerEdit', params: { id: customer.id } }"
                   class="material-icons-outlined text-base"
                 >
                   edit
-                </button>
+                </router-link>
               </a>
               <span class="text-gray-400 hover:text-gray-100 ml-2">
                 <button @click="deleteCustomer(customer.id)" class="material-icons-round text-base">
@@ -66,12 +65,10 @@
 
 <script setup>
 import { computed, onMounted, ref } from 'vue'
-import axios from '../services/mycustomAxios'
 import { useStore } from 'vuex'
 
-const store = useStore()
 
-// const customerId = ref()
+const store = useStore()
 
 const currentPage = ref(1)
 const perPage = 10
@@ -96,12 +93,10 @@ const onClickHandler = (page) => {
 onMounted(() => {
   store.dispatch('getCustomerList', currentPage.value)
 })
+
 </script>
 
 <style>
-body {
-  background: linear-gradient(90deg, #46dcf8, #2250e4);
-}
 .pagination-container {
   display: flex;
   column-gap: 10px;

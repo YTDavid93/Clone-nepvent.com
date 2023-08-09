@@ -1,7 +1,8 @@
 import axios from "axios";
 
+
 const instance = axios.create({
-    baseURL: 'http://192.168.1.188:8080/'
+    baseURL: import.meta.env.VITE_API_HOST,
 });
 
 // Adding an interceptor to include the token in the request headers
