@@ -13,8 +13,12 @@ import VueAwesomePaginate from "vue-awesome-paginate";
 // import the necessary css file
 import "vue-awesome-paginate/dist/style.css";
 
+// import vue sweet alert package
+import VueSweetalert2 from 'vue-sweetalert2'
+import 'sweetalert2/dist/sweetalert2.min.css'
+
 const app = createApp(App)
-// const pinia = createApp(pinia)
+
 
 app.use(router)
 
@@ -23,3 +27,5 @@ app.mount('#app')
 app.use(store)
 
 app.use(VueAwesomePaginate)
+
+app.use(VueSweetalert2)

@@ -37,7 +37,6 @@
             >
               Place Order
             </button>
-            <!-- <p v-if="orderSuccessful">Order successful!</p> -->
           </div>
 
           <div v-for="(list, listIndex) in lists" :key="listIndex" style="max-height: 400px">
@@ -97,6 +96,10 @@ import axios from '../services/mycustomAxios'
 import { ref, onMounted } from 'vue'
 import OrderTable from './OrderTable.vue'
 import { useSocketIO } from '../Socket/socketStore'
+import { useStore } from 'vuex'
+import Swal from 'sweetalert2/dist/sweetalert2.js'
+
+const store = useStore()
 
 const quantity = ref(0)
 const itemsAdded = ref(false)
@@ -113,7 +116,6 @@ const { showLists, lists, selectedTableId } = defineProps(['showLists', 'lists',
 onMounted(() => {
   socket.on('connect', (socket) => {
     console.log(socket, 'sockettttttt')
-    // socket.emit('joinRoom', 'TABLES')
   })
   socket.emit('joinRoom', 'ORDERS')
   // socket.on('OCCUPIED', (data) => {
@@ -121,38 +123,23 @@ onMounted(() => {
   // })
   socket.on('ORDERS_success', (data) => {
     console.log('ORDER_success', data)
-  })
-  // socket.on('ORDERS_error', (data) => {
-  //   console.log('order error', data)
-  // })
+    
+    Swal.fire({
+      icon: 'success',
+      title: 'Order Placed Successfully',
+      timer: 1500,
+      showConfirmButton: false
+    })
 
-  // console.log('socketid', socket.id)
+  })
 })
 
-
 const toggleSubCategories = (listIndex) => {
-  //Iterate through each list in lists array
-  lists.forEach((list, index) => {
-    list.showSubCategories = index === listIndex
-
-    // Preload the first category and its menu items when a list is shown
-    if (index === listIndex && list.MenuCategories.length > 0) {
-      list.MenuCategories[0].showMenuItems = true
-    } else {
-      // Hide other categories' menu items when a different list is clicked
-      list.MenuCategories.forEach((category) => {
-        category.showMenuItems = false
-      })
-    }
-  })
+  store.commit('toggleSubCategories', listIndex)
 }
 
 const toggleMenuItems = (listIndex, categoryIndex) => {
-  lists.forEach((list, index) => {
-    list.MenuCategories.forEach((category, catIndex) => {
-      category.showMenuItems = index === listIndex && catIndex === categoryIndex
-    })
-  })
+  store.commit('toggleMenuItems', { listIndex, categoryIndex })
 }
 
 //Function ho handel itemDecrement
@@ -195,27 +182,26 @@ const itemIncrementMenu = (menuItem) => {
 
 const placeOrder = async (id) => {
   try {
-    const filteredOrders = orders.value.map(order => {
+    const filteredOrders = orders.value.map((order) => {
       return {
         menu_id: order.menuItem.id,
         quantity: order.quantity,
         complimentary: false,
-        remarks: "less Chilly",
+        remarks: 'less Chilly',
         options: null
-      };
-    });
+      }
+    })
 
     const response = await axios.post(`table/${id}/order`, {
       orders: filteredOrders,
       socketId: socket.id
-    });
+    })
 
-    console.log(response);
+    console.log(response)
   } catch (error) {
-    console.log(error);
+    console.log(error)
   }
-};
-
+}
 </script>
 
 <style scoped>

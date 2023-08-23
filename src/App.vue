@@ -1,16 +1,4 @@
 <script setup>
-import { onMounted } from 'vue'
-import { useSocketIO } from './Socket/socketStore'
-
-const { socket } = useSocketIO()
-
-onMounted(() => {
-  socket.emit('joinRoom', 'TABLES')
-
-  socket.on('OCCUPIED', (data) => {
-    console.log('table un OCCUPIED', data)
-  })
-})
 </script>
 
 <template>
@@ -18,3 +6,11 @@ onMounted(() => {
 </template>
 
 <style scoped></style>
+    // const {table_id} = data
+    // locations.value.map((location) => {
+    //   location.tables((table) => {
+    //     if (table.id === table_id) {
+    //       table.occupied = data.occupied
+    //     }
+    //   })
+    // })
