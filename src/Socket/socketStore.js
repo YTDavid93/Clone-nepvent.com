@@ -1,5 +1,4 @@
 import { io } from 'socket.io-client'
-import { ref } from 'vue'
 
 let socketDefault = null
 
