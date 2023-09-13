@@ -27,5 +27,5 @@ coverage
 *.sln
 *.sw?
 
-# Ignore .env file
+# Secret file
 .env
