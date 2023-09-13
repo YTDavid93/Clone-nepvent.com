@@ -27,5 +27,5 @@ coverage
 *.sln
 *.sw?
 
-# Secret file
-.env
+#ignore file 
+.env.development
